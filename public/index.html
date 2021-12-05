@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        .title {
+            width  : 370px;
+            height : 35px;
+            background : #99A3A4;
+            border-width : 3px;
+            border-style : solid;
+            border-color : black;
+            padding:3px;
+            font-weight: bold;
+            font-size: 28px;
+            text-align: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .rectangle {
+            width  : 370px;
+            height : 500px;
+            background : #99A3A4;
+            border-width : 3px;
+            border-style : solid;
+            border-color : black;
+            padding:3px;
+            text-align: center;
+            font-size: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+             
+
+        }
+
+        .text-bar {
+            width  : 370px;
+            height : 100px;
+            background : #99A3A4;
+            border-width : 3px;
+            border-style : solid;
+            border-color : black;
+            padding:3px;
+            font-size: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .btn {
+            width  : 150px;
+            height : 100px;
+            background : #99A3A4;
+            border-width : 3px;
+            border-style : solid;
+            border-color : black;
+            padding:3px;
+            font-size: 20px;
+            position: absolute; top: 5000 px; left: 400px;width: 103px; height: 61px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        
+
+        
+
+
+
+
+
+
+
+    </style>
+</head>
+<div class="title"> Sayy </div>
+<body>
+    <div id="messages" class="rectangle"></div>
+    <form action="">
+        <textarea class="text-bar" autofocus required placeholder="type your message" maxlength="50"  cols="50" rows="7" id="msg" type="text"></textarea><button class="btn">Send</button>
+
+
+
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function(){
+
+            var socket = io();
+
+            $("form").submit(function (e) {
+                e.preventDefault();
+
+                socket.emit("chat message", $("#msg").val() );
+                $("#mag").val("");
+                return false;
+            });
+
+            socket.on('chat message', function (msg) {
+                $("#messages").append($("<p>").text(msg));
+            });
+
+        });  
+    </script>
+</body>
+</html>
